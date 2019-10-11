@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 900px;
+            min-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 100px 50px;
+            /* background-color: #f0f0f0; */
+            /* box-shadow: inset 0 0 3px rgba(0, 0, 0, .35); */
+            perspective: 800px;
+            position: relative;
+            top: 0;
+        }
+
+        #con {
+            width: 200px;
+            height: 300px;
+            margin-left: -100px;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+            position: absolute;
+            left: 50%;
+        }
+
+        .pic {
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="con" class="con"></div>
+    </div>
+
+    <script>
+       
+        (function () {
+            // var con = document.querySelector('.con');
+
+            // 获取图片
+            var htmlPic = '';
+            var str = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            str.forEach(function (eles) {
+                //foreach(function(currentValue,index,arr),this.value) 
+                //当前元素（必选）,当前索引（非必选），数组对象（非必选），传递给函数的值（非必选）
+                htmlPic = htmlPic + '<img class="pic" src="./images/0' + eles + '.jpg" id="pic' + eles + '"/>';
+            });
+            // con.innerHTML = htmlPic;
+
+            //transform(eles,val,key) 当前元素、transition变换数据
+            var transform = function (ele, value, key) {
+                key = key || 'transform';
+                ele.style[key] = value;
+                return ele;
+            }
+
+            $ = function (selector) {
+                return document.querySelector(selector);
+            }, $$ = function (selector) {
+                return document.querySelectorAll(selector);
+            };
+             
+
+          
+             //图片显示到页面
+            var con = $('#con');
+            con.innerHTML = htmlPic;
+            //图片位置：通过3D旋转移动将图片放置在相应的位置
+            //transform:rotateY(xxdeg) translateZ(xxpx);
+            //rotate：图片9张，将角度平分
+            var rotate = 360 / str.length;
+            var transZ = 100 / Math.tan((rotate / 2 / 180) * Math.PI);
+            var indexPiece = 0;
+            str.forEach(function (i, j) {
+                
+                transform($("#pic" + i), "rotateY(" + j * rotate + "deg) translateZ(" + (transZ + 20) + "px)");
+            });
+            //监听事件：点击一张图片，图片移动
+            con.addEventListener("click", function () {
+                //transform(ele,value,key)
+                //transfor(this,rotateY(-40deg),tranform)
+                transform(this, "rotateY(" + (-1 * rotate * ++indexPiece) + "deg)");
+            });
+
+
+
+        }
+        )();
+    </script>
+</body>
+
+</html>

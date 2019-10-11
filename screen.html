@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .div1 {
+            color: transparent;
+            border: 1px solid #f10215;
+            /* background: hsla(360, 20%, 20%, .5) */
+        }
+    </style>
+</head>
+<body>
+    <div class="div1">transparent</div>
+    <div>hsla</div>
+    <button id="btn">screen</button>
+    <script>
+        //  var btn = document.getElementById('#btn');
+        // //  console.log(btn.screenX);
+        // console.log(window.screenX);
+
+        var attr = [15,20,50,58];
+        var sum = 0;
+        attr.forEach(function(i){
+             sum += i;
+        });
+        console.log(sum);
+    </script>
+</body>
+</html>
